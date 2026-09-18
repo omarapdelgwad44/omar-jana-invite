@@ -37,8 +37,6 @@ export type Lang = "ar" | "en";
 export type Localized = Record<Lang, string>;
 
 export const COPY = {
-  tapToOpen: { ar: "اضغطوا للفتح", en: "Tap to open" },
-  skip: { ar: "تخطّي", en: "Skip" },
   together: {
     ar: "معًا مكانٌ جميل أن نكون فيه",
     en: "Together is a beautiful place to be",
@@ -121,5 +119,3 @@ export const COPY = {
 export function tx(value: Localized, lang: Lang): string {
   return value[lang];
 }
-
-export type ExperienceStage = "envelope" | "doors" | "venue" | "letter";

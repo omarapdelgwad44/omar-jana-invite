@@ -62,11 +62,16 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
+  const publicBase = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
   return (
     <html
       lang="ar"
       dir="rtl"
       className={`${amiri.variable} ${ruqaa.variable} ${cairo.variable} ${cormorant.variable} ${script.variable} ${montserrat.variable} h-full antialiased`}
+      style={{
+        ["--floral-wallpaper" as string]: `url("${publicBase}/invite/floral-wallpaper.png")`,
+      }}
     >
       <body className="min-h-full">{children}</body>
     </html>
