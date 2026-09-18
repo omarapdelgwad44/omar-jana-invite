@@ -1,4 +1,4 @@
-:HL["/omar-jana-invite/_next/static/chunks/2m7n5pk64nazm.css","style"]
+:HL["/omar-jana-invite/_next/static/chunks/3ck17sqzga-ha.css","style"]
 :HL["/omar-jana-invite/_next/static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/omar-jana-invite/_next/static/media/05d29f0ed5b0e698-s.p.1mou8v493x-u7.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/omar-jana-invite/_next/static/media/1062333f2bd32cfe-s.p.1u_72eqgml40c.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
@@ -13,4 +13,4 @@
 :HL["/omar-jana-invite/_next/static/media/dda2c5944c1d02d1-s.p.0af27si8jwinc.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/omar-jana-invite/_next/static/media/e8f2fbee2754df70-s.p.1dqa_6e_ad4sj.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/omar-jana-invite/_next/static/media/f48d461c03e0a8ec-s.p.3rqg0w444aekk.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-0:{"tree":{"name":"","param":null,"prefetchHints":4180,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}},"staleTime":300,"buildId":"JoEye5yjULC3rwjeq4a9h"}
+0:{"tree":{"name":"","param":null,"prefetchHints":4180,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}},"staleTime":300,"buildId":"nXKdPmXka1OEgfGCu5eeB"}
