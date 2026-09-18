@@ -20,7 +20,7 @@ export function GoldHeroArt() {
     <div className="gold-art" aria-hidden="true">
       <div className="gold-art__ken">
         <Image
-          src="/invite/swan-arch-hero.png"
+          src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/invite/swan-arch-hero.png`}
           alt=""
           fill
           preload
