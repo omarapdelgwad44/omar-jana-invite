@@ -1,11 +1,25 @@
 import type { Metadata, Viewport } from "next";
-import { Amiri, Cairo, Cormorant_Garamond, Great_Vibes } from "next/font/google";
+import { Amiri, Aref_Ruqaa, Cairo, Cormorant_Garamond, Great_Vibes, Montserrat } from "next/font/google";
 import "./globals.css";
 
 const amiri = Amiri({
   subsets: ["arabic", "latin"],
   weight: ["400", "700"],
   variable: "--font-amiri",
+  display: "swap",
+});
+
+const ruqaa = Aref_Ruqaa({
+  subsets: ["arabic", "latin"],
+  weight: ["400", "700"],
+  variable: "--font-ruqaa",
+  display: "swap",
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-label",
   display: "swap",
 });
 
@@ -40,7 +54,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f6eee4",
+  themeColor: "#fdfaf4",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -52,7 +66,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="ar"
       dir="rtl"
-      className={`${amiri.variable} ${cairo.variable} ${cormorant.variable} ${script.variable} h-full antialiased`}
+      className={`${amiri.variable} ${ruqaa.variable} ${cairo.variable} ${cormorant.variable} ${script.variable} ${montserrat.variable} h-full antialiased`}
     >
       <body className="min-h-full">{children}</body>
     </html>

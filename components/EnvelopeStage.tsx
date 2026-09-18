@@ -14,6 +14,8 @@ type Props = {
 
 type EnvelopePhase = "idle" | "opening" | "revealed";
 
+const PETALS = ["n", "e", "s", "w"] as const;
+
 export function EnvelopeStage({ reducedMotion, onOpen, onSkip }: Props) {
   const { lang } = useLanguage();
   const [phase, setPhase] = useState<EnvelopePhase>("idle");
@@ -41,8 +43,8 @@ export function EnvelopeStage({ reducedMotion, onOpen, onSkip }: Props) {
       return;
     }
     setPhase("opening");
-    timers.current.push(window.setTimeout(() => setPhase("revealed"), 900));
-    timers.current.push(window.setTimeout(finish, 1450));
+    timers.current.push(window.setTimeout(() => setPhase("revealed"), 1250));
+    timers.current.push(window.setTimeout(finish, 1900));
   };
 
   return (
@@ -57,7 +59,24 @@ export function EnvelopeStage({ reducedMotion, onOpen, onSkip }: Props) {
         />
       </div>
 
-      <div className="oj-env__paper">
+      <div className="oj-env__petals" aria-hidden="true">
+        {PETALS.map((side) => (
+          <div key={side} className={`oj-env__petal oj-env__petal--${side}`}>
+            <div className="oj-env__petal-clip">
+              <Image
+                src={envelopeSrc}
+                alt=""
+                fill
+                sizes="100vw"
+                className="oj-env__photo"
+              />
+            </div>
+            <div className="oj-env__petal-back" />
+          </div>
+        ))}
+      </div>
+
+      <div className="oj-env__full">
         <Image
           src={envelopeSrc}
           alt=""
@@ -66,7 +85,6 @@ export function EnvelopeStage({ reducedMotion, onOpen, onSkip }: Props) {
           sizes="100vw"
           className="oj-env__photo"
         />
-        <div className="oj-env__glow" aria-hidden="true" />
       </div>
 
       <LanguageToggle />

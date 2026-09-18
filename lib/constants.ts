@@ -14,6 +14,10 @@ export const EVENT_LABEL = {
   date: { ar: "٩ أكتوبر", en: "9 October" },
   year: { ar: "٢٠٢٦", en: "2026" },
   gregorian: "9 October 2026",
+  gregorianCaps: "OCTOBER 9, 2026",
+  day: "09",
+  month: "10",
+  yearNum: "2026",
 } as const;
 
 export const VENUE = {
@@ -39,15 +43,34 @@ export const COPY = {
     ar: "معًا مكانٌ جميل أن نكون فيه",
     en: "Together is a beautiful place to be",
   },
+  togetherForever: { ar: "معًا إلى الأبد", en: "Together Forever" },
   eventOf: { ar: "حفل خطوبة", en: "The engagement of" },
   joinTitle: {
-    ar: "شاركونا فرحتنا",
-    en: "Join Us To Celebrate Our Engagement",
+    ar: "حفل خطوبتنا",
+    en: "Our Engagement",
   },
   joinBody: {
-    ar: "يسعدنا أن نشارككم هذه الليلة، وأن تكونوا معنا في بداية حكايتنا.",
-    en: "We are so excited to celebrate this special day with you.",
+    ar: "بكل الحب والسعادة ندعوكم لمشاركتنا أجمل لحظات العمر، والاحتفال بخطوبتنا وسط الأهل والأصدقاء",
+    en: "With love and joy, we invite you to share the most beautiful moments of our lives and celebrate our engagement among family and friends.",
   },
+  dateCardLabel: { ar: "موعد الخطوبة", en: "Engagement Date" },
+  dateCardNote: {
+    ar: "في ليلة مليئة بالفرح والحب ننتظر حضوركم الكريم",
+    en: "On a night filled with joy and love, we await your presence.",
+  },
+  verseShort: {
+    ar: "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُمْ مِنْ أَنْفُسِكُمْ أَزْوَاجًا لِتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَوَدَّةً وَرَحْمَةً",
+    en: "And among His signs is that He created for you mates from among yourselves, that you may find tranquility in them, and He placed between you affection and mercy.",
+  },
+  verseFull: {
+    ar: "﴿وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُمْ مِنْ أَنْفُسِكُمْ أَزْوَاجًا لِتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِقَوْمٍ يَتَفَكَّرُونَ﴾",
+    en: "And among His signs is that He created for you mates from among yourselves, that you may find tranquility in them, and He placed between you affection and mercy. Indeed in that are signs for a people who reflect.",
+  },
+  verseSource: { ar: "سورة الروم — ٢١", en: "Surah Ar-Rum — 30:21" },
+  scroll: { ar: "تابعوا", en: "Scroll" },
+  day: { ar: "اليوم", en: "Day" },
+  month: { ar: "الشهر", en: "Month" },
+  yearWord: { ar: "السنة", en: "Year" },
   timeLocation: { ar: "الوقت والمكان", en: "Time & Location" },
   openMaps: { ar: "فتح في خرائط جوجل", en: "Open in Google Maps" },
   countdown: { ar: "العدّ التنازلي", en: "Countdown" },
