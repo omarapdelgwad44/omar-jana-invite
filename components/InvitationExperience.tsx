@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { GiftDoors } from "@/components/GiftDoors";
 import { InvitationLetter } from "@/components/InvitationLetter";
-import { LuxuryEnvelope } from "@/components/LuxuryEnvelope";
+import { EnvelopeStage } from "@/components/EnvelopeStage";
 import { VenueWalk } from "@/components/VenueWalk";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { LanguageProvider } from "@/lib/language";
@@ -37,7 +37,7 @@ export function InvitationExperience() {
                 exit={{ opacity: 0 }}
                 transition={{ duration: reducedMotion ? 0.15 : 0.35 }}
               >
-                <LuxuryEnvelope
+                <EnvelopeStage
                   reducedMotion={reducedMotion}
                   onOpen={openDoors}
                   onSkip={skipToLetter}

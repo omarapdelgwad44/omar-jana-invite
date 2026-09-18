@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { COPY, tx } from "@/lib/constants";
+import { COUPLE, COPY, EVENT_LABEL, tx } from "@/lib/constants";
 import { LanguageToggle } from "@/components/LanguageToggle";
 import { useLanguage } from "@/lib/language";
 
@@ -19,7 +18,7 @@ export function LuxuryEnvelope({ reducedMotion, onOpen, onSkip }: Props) {
   const [phase, setPhase] = useState<EnvelopePhase>("idle");
   const finished = useRef(false);
   const timers = useRef<number[]>([]);
-  const envelopeSrc =
+  const sealSrc =
     lang === "en" ? "/invite/envelope-wax-en.png" : "/invite/envelope-wax-ar.png";
 
   const finish = () => {
@@ -36,57 +35,46 @@ export function LuxuryEnvelope({ reducedMotion, onOpen, onSkip }: Props) {
 
   const beginOpen = () => {
     if (phase !== "idle") return;
-    if (reducedMotion) {
-      finish();
-      return;
-    }
     setPhase("opening");
-    timers.current.push(window.setTimeout(() => setPhase("revealed"), 1500));
-    timers.current.push(window.setTimeout(finish, 2000));
+    const revealIn = reducedMotion ? 1400 : 1800;
+    const finishIn = reducedMotion ? 2600 : 3600;
+    timers.current.push(window.setTimeout(() => setPhase("revealed"), revealIn));
+    timers.current.push(window.setTimeout(finish, finishIn));
   };
 
   return (
     <section className={`stage env env--${phase}`}>
-      <div className="env__scene">
-        <div
-          className="env__body"
-          style={{ backgroundImage: `url(${envelopeSrc})` }}
-        />
-
-        <div className="env__flap">
-          <div
-            className="env__flap-front"
-            style={{ backgroundImage: `url(${envelopeSrc})` }}
-          />
-          <div className="env__flap-back" aria-hidden="true" />
-        </div>
-
-        <div className="env__full">
-          <Image
-            src={envelopeSrc}
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            className="env__photo"
-          />
-        </div>
-
-        <div className="env__seal" aria-hidden="true">
-          <div className="env__seal-sync">
-            <Image
-              src={envelopeSrc}
-              alt=""
-              fill
-              sizes="100vw"
-              className="env__photo"
+      <LanguageToggle />
+      <div className="mail-stage">
+        <div className="mail">
+          <div className="mail__body">
+            <div className="mail__back" />
+            <div className="mail__card">
+              <p>{tx(COPY.eventOf, lang)}</p>
+              <h2>
+                <span>{lang === "ar" ? COUPLE.first : COUPLE.firstLatin}</span>
+                <small>{lang === "ar" ? "و" : "&"}</small>
+                <span>{lang === "ar" ? COUPLE.second : COUPLE.secondLatin}</span>
+              </h2>
+              <em>
+                {tx(EVENT_LABEL.weekday, lang)} · {tx(EVENT_LABEL.date, lang)}{" "}
+                {tx(EVENT_LABEL.year, lang)}
+              </em>
+            </div>
+            <div className="mail__front" />
+          </div>
+          <div className="mail__flap">
+            <div className="mail__flap-face mail__flap-face--front" />
+            <div className="mail__flap-face mail__flap-face--back" />
+            <div
+              className="mail__seal"
+              style={{ backgroundImage: `url(${sealSrc})` }}
+              aria-hidden="true"
             />
           </div>
         </div>
       </div>
 
-      <div className="stage__veil" aria-hidden="true" />
-      <LanguageToggle />
       <button
         type="button"
         className="stage__hit"

@@ -33,13 +33,13 @@ export function InvitationLetter({ reducedMotion }: Props) {
             src="/invite/gazebo-hero.png"
             alt=""
             fill
-            priority
+            preload
             sizes="(min-width: 960px) 58vw, 100vw"
             className="hero__photo"
           />
           <div className="hero__shade" aria-hidden="true" />
+          <LanguageToggle />
         </div>
-        <LanguageToggle />
         <div className="hero__copy">
           <p className="hero__quote">{tx(COPY.together, lang)}</p>
           <p className="hero__kicker">{tx(COPY.eventOf, lang)}</p>
