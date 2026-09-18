@@ -1,0 +1,25 @@
+1:"$Sreact.fragment"
+2:I[22016,["/omar-jana-invite/_next/static/chunks/0h2qsuyze9ds1.js","/omar-jana-invite/_next/static/chunks/0axdrs6tow-4n.js"],""]
+3:I[97367,["/omar-jana-invite/_next/static/chunks/0h2qsuyze9ds1.js"],"OutletBoundary"]
+4:"$Sreact.suspense"
+8:I[97367,["/omar-jana-invite/_next/static/chunks/0h2qsuyze9ds1.js"],"ViewportBoundary"]
+9:I[97367,["/omar-jana-invite/_next/static/chunks/0h2qsuyze9ds1.js"],"MetadataBoundary"]
+a:I[27201,["/omar-jana-invite/_next/static/chunks/0h2qsuyze9ds1.js"],"IconMark"]
+c:I[39756,["/omar-jana-invite/_next/static/chunks/0h2qsuyze9ds1.js"],"default"]
+d:I[37457,["/omar-jana-invite/_next/static/chunks/0h2qsuyze9ds1.js"],"default"]
+10:I[39756,["/omar-jana-invite/_next/static/chunks/0h2qsuyze9ds1.js"],"LoadingBoundaryProvider"]
+11:I[8821,["/omar-jana-invite/_next/static/chunks/0h2qsuyze9ds1.js","/omar-jana-invite/_next/static/chunks/3k4kgd-lvrliq.js"],"default"]
+:HL["/omar-jana-invite/_next/static/chunks/2m7n5pk64nazm.css","style"]
+7:X
+f:X
+f:C
+0:{"buildId":"JoEye5yjULC3rwjeq4a9h","data":[{"rsc":["$","$1","c",{"children":[["$","main",null,{"className":"fallback-invite","children":[["$","h1",null,{"children":["عمر"," و ","جنى"]}],["$","p",null,{"children":"هذه الصفحة ليست جزءًا من الدعوة."}],["$","$L2",null,{"href":"/","className":"maps-btn","children":"العودة إلى الدعوة"}]]}],[["$","script","script-0",{"src":"/omar-jana-invite/_next/static/chunks/0axdrs6tow-4n.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"isPartial":"$@6","staleTime":"$7","varyParams":null},{"rsc":["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],["$","$L8",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1, maximum-scale=5"}],["$","meta","2",{"name":"theme-color","content":"#fdfaf4"}],["$","meta","3",{"name":"color-scheme","content":"light"}]]}],["$","div",null,{"hidden":true,"children":["$","$L9",null,{"children":["$","$4",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"عمر وجنى | دعوة الخطوبة"}],["$","meta","1",{"name":"description","content":"دعوة لحضور حفل خطوبة عمر وجنى في التاسع من أكتوبر."}],["$","meta","2",{"name":"application-name","content":"Omar & Jana"}],["$","meta","3",{"name":"author","content":"Omar & Jana"}],["$","meta","4",{"name":"keywords","content":"خطوبة,عمر,جنى,دعوة"}],["$","link","5",{"rel":"icon","href":"/omar-jana-invite/favicon.ico?favicon.2vob68tjqpejf.ico","sizes":"256x256","type":"image/x-icon"}],["$","link","6",{"rel":"icon","href":"/omar-jana-invite/icon.svg?icon.1mwruaeayurln.svg","sizes":"any","type":"image/svg+xml"}],["$","$La","7",{}]]}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"isPartial":"$@b","staleTime":"$7","varyParams":null},{"rsc":["$","$1","c",{"children":[null,["$","$Lc",null,{"parallelRouterKey":"children","template":["$","$Ld",null,{}]}]]}],"isPartial":"$@e","staleTime":"$7","varyParams":"$f"},{"rsc":["$","$L10",null,{"loading":[["$","div","l",{"className":"boot-loader","role":"status","aria-label":"جاري تحميل الدعوة","children":["$","span",null,{"className":"boot-loader__ring"}]}],[],null],"children":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/omar-jana-invite/_next/static/chunks/2m7n5pk64nazm.css","precedence":"next"}],["$","script","script-0",{"src":"/omar-jana-invite/_next/static/chunks/0h2qsuyze9ds1.js","async":true}]],["$","html",null,{"lang":"ar","dir":"rtl","className":"amiri_4f68a141-module__lAkANG__variable aref_ruqaa_d45e7be-module___Eq91W__variable cairo_e3e30531-module___rp5zG__variable cormorant_garamond_4b68bbdf-module__dt2Pva__variable great_vibes_fcf897d4-module__SeP6RG__variable montserrat_96931946-module__zXXnnW__variable h-full antialiased","style":{"--floral-wallpaper":"url(\"/omar-jana-invite/invite/floral-wallpaper.png\")"},"children":["$","body",null,{"className":"min-h-full","children":["$","$Lc",null,{"parallelRouterKey":"children","error":"$11","errorStyles":[],"errorScripts":[["$","script","script-0",{"src":"/omar-jana-invite/_next/static/chunks/3k4kgd-lvrliq.js","async":true}]],"template":["$","$Ld",null,{}],"notFound":[["$","main",null,{"className":"fallback-invite","children":[["$","h1",null,{"children":["عمر"," و ","جنى"]}],["$","p",null,{"children":"هذه الصفحة ليست جزءًا من الدعوة."}],["$","$L2",null,{"href":"/","className":"maps-btn","children":"العودة إلى الدعوة"}]]}],[]]}]}]}]]}]}],"isPartial":"$@12","staleTime":"$7","varyParams":null}],"isUpgradeableISRFallback":false,"a":"$@13","rootVaryParams":null,"needsRuntimeRequest":"$@14"}
+5:null
+7:300
+14:true
+7:C
+13:0
+b:"$undefined"
+e:"$undefined"
+12:"$undefined"
+6:"$undefined"
