@@ -31,14 +31,21 @@
 html,
 body {
   min-height: 100%;
+  height: auto;
   background: var(--blush);
   color: var(--ink);
+}
+
+html {
+  overflow-x: clip;
+  overflow-y: visible;
 }
 
 body {
   margin: 0;
   font-family: var(--font-body);
-  overflow-x: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
@@ -53,8 +60,8 @@ body {
   position: relative;
   min-height: 100svh;
   isolation: isolate;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow-x: clip;
+  overflow-y: visible;
   background: #fdfaf4;
 }
 
@@ -63,7 +70,7 @@ body {
   width: 100%;
   min-height: 100svh;
   background: #fdfaf4;
-  container-type: size;
+  container-type: inline-size;
   container-name: invite;
 }
 
