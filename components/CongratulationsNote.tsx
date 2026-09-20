@@ -4,7 +4,7 @@ import Link from "next/link";
 import { FormEvent, useState } from "react";
 import { COPY } from "@/lib/constants";
 import { addWish, isGuestbookConfigured } from "@/lib/guestbook";
-import { GUESTBOOK_SCRIPT_URL, MESSAGE_MAX, NAME_MAX } from "@/lib/guestbook-config";
+import { MESSAGE_MAX, NAME_MAX } from "@/lib/guestbook-config";
 
 type Status = "idle" | "saving" | "saved" | "error";
 
@@ -19,8 +19,15 @@ export function CongratulationsNote() {
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (status === "saving") return;
+    if (!configured) {
+      setStatus("error");
+      setError(COPY.guestbookSetup.ar);
+      return;
+    }
+    // Bots fill honeypot — refuse silently without a false "saved" state.
     if (honeypot.trim()) {
-      setStatus("saved");
+      setStatus("error");
+      setError(COPY.blessingError.ar);
       return;
     }
 
@@ -51,9 +58,7 @@ export function CongratulationsNote() {
   return (
     <form className="bless" onSubmit={onSubmit}>
       <p className="sheet__body">{COPY.blessingBody.ar}</p>
-      {!configured && !GUESTBOOK_SCRIPT_URL ? (
-        <p className="bless__hint">{COPY.guestbookSetup.ar}</p>
-      ) : null}
+      {!configured ? <p className="bless__hint">{COPY.guestbookSetup.ar}</p> : null}
       <label className="bless__hp" aria-hidden="true">
         <span>Company</span>
         <input
@@ -72,6 +77,7 @@ export function CongratulationsNote() {
           value={name}
           onChange={(event) => setName(event.target.value)}
           placeholder={COPY.blessingNamePlaceholder.ar}
+          disabled={!configured || status === "saving"}
         />
       </label>
       <label className="bless__field">
@@ -84,9 +90,14 @@ export function CongratulationsNote() {
           value={message}
           onChange={(event) => setMessage(event.target.value)}
           placeholder={COPY.blessingPlaceholder.ar}
+          disabled={!configured || status === "saving"}
         />
       </label>
-      <button className="maps-btn bless__send" type="submit" disabled={status === "saving"}>
+      <button
+        className="maps-btn bless__send"
+        type="submit"
+        disabled={!configured || status === "saving"}
+      >
         {status === "saving" ? COPY.blessingSending.ar : COPY.sendBlessing.ar}
       </button>
       {status === "error" ? (

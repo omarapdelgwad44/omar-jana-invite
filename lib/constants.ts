@@ -105,12 +105,12 @@ export const COPY = {
     en: "Could not save your message. Please try again.",
   },
   blessingHint: {
-    ar: "تظهر التهاني في سجل الخطوبة بعد ربط Google Sheet (انظر README).",
-    en: "Messages appear on the guestbook wall once Google Sheets is connected (see README).",
+    ar: "تظهر تهنئتكم مباشرة في صفحة سجل التهاني.",
+    en: "Your message appears on the guestbook page right away.",
   },
   guestbookSetup: {
-    ar: "سجل التهاني جاهز في الواجهة، وينتظر ربط Google Sheet عبر Apps Script (دقيقتان في README).",
-    en: "The guestbook UI is ready. Connect Google Sheets via Apps Script (two minutes in the README).",
+    ar: "سجل التهاني غير متصل حاليًا. تعذّر حفظ الرسائل.",
+    en: "The guestbook is not connected, so messages cannot be saved yet.",
   },
   readWishes: { ar: "قراءة سجل التهاني", en: "Read the guestbook" },
   wishesTitle: { ar: "سجل التهاني", en: "Guestbook" },

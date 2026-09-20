@@ -1,4 +1,10 @@
-import { GUESTBOOK_SCRIPT_URL, MESSAGE_MAX, NAME_MAX } from "@/lib/guestbook-config";
+import {
+  GUESTBOOK_SCRIPT_URL,
+  MANTLE_BASE_URL,
+  MANTLE_NAMESPACE,
+  MESSAGE_MAX,
+  NAME_MAX,
+} from "@/lib/guestbook-config";
 
 export type Wish = {
   id: string;
@@ -19,8 +25,12 @@ function isLocalDemo(): boolean {
   return host === "localhost" || host === "127.0.0.1";
 }
 
+function useMantle(): boolean {
+  return Boolean(MANTLE_NAMESPACE) && !GUESTBOOK_SCRIPT_URL;
+}
+
 export function isGuestbookConfigured(): boolean {
-  return Boolean(GUESTBOOK_SCRIPT_URL) || isLocalDemo();
+  return Boolean(GUESTBOOK_SCRIPT_URL) || useMantle() || isLocalDemo();
 }
 
 export function sanitizeWishInput(name: string, message: string): { name: string; message: string } | null {
@@ -32,6 +42,12 @@ export function sanitizeWishInput(name: string, message: string): { name: string
 
 function sortNewest(wishes: Wish[]): Wish[] {
   return [...wishes].sort((a, b) => b.createdAt - a.createdAt);
+}
+
+function isWish(value: unknown): value is Wish {
+  if (!value || typeof value !== "object") return false;
+  const wish = value as Wish;
+  return Boolean(wish.name && wish.message);
 }
 
 function readDemoWishes(): Wish[] {
@@ -88,16 +104,92 @@ async function requestGuestbook(init?: RequestInit & { query?: Record<string, st
   return parsePayload(response);
 }
 
+async function mantleFetch(path: string, init?: RequestInit): Promise<Response> {
+  const cleanPath = path.replace(/^\/+/, "");
+  const url = `${MANTLE_BASE_URL}/${MANTLE_NAMESPACE}/${cleanPath}`;
+  return fetch(url, {
+    ...init,
+    headers: {
+      Accept: "application/json",
+      ...(init?.body ? { "Content-Type": "application/json" } : {}),
+      ...init?.headers,
+    },
+    cache: "no-store",
+  });
+}
+
+async function listMantleWishes(): Promise<Wish[]> {
+  const listResponse = await fetch(`${MANTLE_BASE_URL}/list/${MANTLE_NAMESPACE}`, {
+    cache: "no-store",
+    headers: { Accept: "application/json" },
+  });
+
+  if (listResponse.status === 404) {
+    return [];
+  }
+  if (!listResponse.ok) {
+    throw new Error("تعذّر تحميل سجل التهاني الآن.");
+  }
+
+  const listed = (await listResponse.json()) as {
+    entries?: Array<{ path?: string }>;
+  };
+  const paths = (listed.entries ?? [])
+    .map((entry) => entry.path || "")
+    .filter((path) => path.startsWith("wishes/"));
+
+  if (paths.length === 0) {
+    return [];
+  }
+
+  const wishes = await Promise.all(
+    paths.map(async (path) => {
+      const response = await mantleFetch(path);
+      if (!response.ok) return null;
+      const payload = (await response.json()) as unknown;
+      return isWish(payload) ? payload : null;
+    }),
+  );
+
+  return sortNewest(wishes.filter((wish): wish is Wish => Boolean(wish)));
+}
+
+async function addMantleWish(name: string, message: string): Promise<Wish> {
+  const wish: Wish = {
+    id: crypto.randomUUID(),
+    name,
+    message,
+    createdAt: Date.now(),
+  };
+
+  const response = await mantleFetch(`wishes/${wish.id}`, {
+    method: "POST",
+    body: JSON.stringify(wish),
+  });
+
+  if (!response.ok) {
+    throw new Error("تعذّر حفظ التهنئة. حاولوا مرة أخرى.");
+  }
+
+  return wish;
+}
+
 export async function listWishes(): Promise<Wish[]> {
-  if (!GUESTBOOK_SCRIPT_URL && isLocalDemo()) {
+  if (GUESTBOOK_SCRIPT_URL) {
+    const payload = await requestGuestbook();
+    const wishes = Array.isArray(payload.wishes) ? payload.wishes : [];
+    return sortNewest(wishes.filter((wish) => wish && wish.name && wish.message));
+  }
+
+  if (useMantle()) {
+    return listMantleWishes();
+  }
+
+  if (isLocalDemo()) {
     return readDemoWishes();
   }
 
-  const payload = await requestGuestbook();
-  const wishes = Array.isArray(payload.wishes) ? payload.wishes : [];
-  return sortNewest(
-    wishes.filter((wish) => wish && wish.name && wish.message),
-  );
+  throw new Error("سجل التهاني غير مربوط بعد.");
 }
 
 export async function addWish(name: string, message: string): Promise<Wish> {
@@ -106,7 +198,39 @@ export async function addWish(name: string, message: string): Promise<Wish> {
     throw new Error("من فضلكم اكتبوا الاسم وكلمة التهنئة.");
   }
 
-  if (!GUESTBOOK_SCRIPT_URL && isLocalDemo()) {
+  if (GUESTBOOK_SCRIPT_URL) {
+    try {
+      const payload = await requestGuestbook({
+        method: "POST",
+        body: JSON.stringify(clean),
+      });
+      if (payload.wish?.name && payload.wish.message) {
+        return payload.wish;
+      }
+      if (payload.error === "empty") {
+        throw new Error("من فضلكم اكتبوا الاسم وكلمة التهنئة.");
+      }
+    } catch (error) {
+      if (error instanceof Error && error.message.includes("اكتبوا")) {
+        throw error;
+      }
+      // Apps Script sometimes blocks POST CORS; GET with query still appends a row.
+    }
+
+    const payload = await requestGuestbook({
+      query: { name: clean.name, message: clean.message },
+    });
+    if (payload.wish?.name && payload.wish.message) {
+      return payload.wish;
+    }
+    throw new Error("تعذّر حفظ التهنئة. حاولوا مرة أخرى.");
+  }
+
+  if (useMantle()) {
+    return addMantleWish(clean.name, clean.message);
+  }
+
+  if (isLocalDemo()) {
     const wish: Wish = {
       id: crypto.randomUUID(),
       name: clean.name,
@@ -117,26 +241,5 @@ export async function addWish(name: string, message: string): Promise<Wish> {
     return wish;
   }
 
-  try {
-    const payload = await requestGuestbook({
-      method: "POST",
-      body: JSON.stringify(clean),
-    });
-    if (payload.wish?.name && payload.wish.message) {
-      return payload.wish;
-    }
-    if (payload.error === "empty") {
-      throw new Error("من فضلكم اكتبوا الاسم وكلمة التهنئة.");
-    }
-  } catch {
-    // Apps Script sometimes blocks POST CORS; GET with query still appends a row.
-  }
-
-  const payload = await requestGuestbook({
-    query: { name: clean.name, message: clean.message },
-  });
-  if (payload.wish?.name && payload.wish.message) {
-    return payload.wish;
-  }
-  throw new Error("تعذّر حفظ التهنئة. حاولوا مرة أخرى.");
+  throw new Error("سجل التهاني غير مربوط بعد.");
 }
