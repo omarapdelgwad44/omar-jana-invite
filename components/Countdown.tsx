@@ -2,23 +2,15 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
-import { COPY, EVENT_ISO, type Lang, tx } from "@/lib/constants";
+import { COPY, EVENT_ISO, EVENT_LABEL } from "@/lib/constants";
 import { getEventDate, getTimeParts, pad, type TimeParts } from "@/lib/countdown";
 
-const LABELS: Record<Lang, { key: keyof Omit<TimeParts, "expired">; label: string }[]> = {
-  ar: [
-    { key: "days", label: "يوم" },
-    { key: "hours", label: "ساعة" },
-    { key: "minutes", label: "دقيقة" },
-    { key: "seconds", label: "ثانية" },
-  ],
-  en: [
-    { key: "days", label: "Days" },
-    { key: "hours", label: "Hours" },
-    { key: "minutes", label: "Mins" },
-    { key: "seconds", label: "Secs" },
-  ],
-};
+const LABELS: { key: keyof Omit<TimeParts, "expired">; label: string }[] = [
+  { key: "days", label: "يوم" },
+  { key: "hours", label: "ساعة" },
+  { key: "minutes", label: "دقيقة" },
+  { key: "seconds", label: "ثانية" },
+];
 
 function readParts(): TimeParts | null {
   try {
@@ -29,17 +21,13 @@ function readParts(): TimeParts | null {
   }
 }
 
-type Props = {
-  lang: Lang;
-};
-
-export function Countdown({ lang }: Props) {
-  const [parts, setParts] = useState<TimeParts | null>(readParts);
+export function Countdown() {
+  const [parts, setParts] = useState<TimeParts | null>(null);
 
   useEffect(() => {
-    const id = window.setInterval(() => {
-      setParts(readParts());
-    }, 1000);
+    const tick = () => setParts(readParts());
+    tick();
+    const id = window.setInterval(tick, 1000);
     return () => window.clearInterval(id);
   }, []);
 
@@ -56,7 +44,7 @@ export function Countdown({ lang }: Props) {
   if (!parts || !values) {
     return (
       <p className="countdown-fallback" role="status">
-        {lang === "ar" ? "٩ أكتوبر ٢٠٢٦" : "9 October 2026"}
+        {EVENT_LABEL.date.ar} {EVENT_LABEL.year.ar}
       </p>
     );
   }
@@ -69,14 +57,14 @@ export function Countdown({ lang }: Props) {
         animate={{ opacity: 1, y: 0 }}
         role="status"
       >
-        {tx(COPY.together, lang)}
+        {COPY.together.ar}
       </motion.p>
     );
   }
 
   return (
     <div className="countdown" role="timer" aria-live="polite">
-      {LABELS[lang].map((item) => (
+      {LABELS.map((item) => (
         <div key={item.key} className="countdown__cell">
           <div className="countdown__window">
             <AnimatePresence mode="popLayout" initial={false}>

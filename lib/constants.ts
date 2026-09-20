@@ -6,23 +6,27 @@ export const COUPLE = {
   monogram: "ع ج",
 } as const;
 
-/** Friday 9 October 2026, 19:00 Arabia Standard Time */
-export const EVENT_ISO = "2026-10-09T19:00:00+03:00";
+/** Thursday 8 October 2026, 19:00 Arabia Standard Time */
+export const EVENT_ISO = "2026-10-08T19:00:00+03:00";
 
 export const EVENT_LABEL = {
-  weekday: { ar: "الجمعة", en: "Friday" },
-  date: { ar: "٩ أكتوبر", en: "9 October" },
+  weekday: { ar: "الخميس", en: "Thursday" },
+  date: { ar: "٨ أكتوبر", en: "8 October" },
   year: { ar: "٢٠٢٦", en: "2026" },
-  gregorian: "9 October 2026",
-  gregorianCaps: "OCTOBER 9, 2026",
-  day: "09",
+  gregorian: "8 October 2026",
+  gregorianCaps: "OCTOBER 8, 2026",
+  day: "08",
   month: "10",
   yearNum: "2026",
 } as const;
 
 export const VENUE = {
-  name: { ar: "يُعلن المكان قريبًا", en: "Venue to be announced" },
-  mapsUrl: "",
+  name: { ar: "نادي نقابة المهندسين", en: "Engineers Syndicate Club" },
+  address: {
+    ar: "شارع البحر الأعظم، كورنيش النيل، المعادي",
+    en: "El Bahr El Aazam Street, Nile Corniche, Maadi",
+  },
+  mapsUrl: "https://maps.app.goo.gl/CadJZ8AUGYbZF37D6?g_st=aw",
   time: { ar: "٧:٠٠ مساءً", en: "7:00 PM" },
 } as const;
 
@@ -72,35 +76,26 @@ export const COPY = {
   timeLocation: { ar: "الوقت والمكان", en: "Time & Location" },
   openMaps: { ar: "فتح في خرائط جوجل", en: "Open in Google Maps" },
   countdown: { ar: "العدّ التنازلي", en: "Countdown" },
-  until: { ar: "حتى ٩ أكتوبر ٢٠٢٦", en: "Until 9 October 2026" },
+  until: { ar: "حتى ٨ أكتوبر ٢٠٢٦", en: "Until 8 October 2026" },
   timeline: { ar: "جدول الليلة", en: "Timeline of the Evening" },
   timelineBody: {
     ar: "تبدأ الليلة بحفل الخطوبة في السابعة مساءً.",
     en: "The celebration begins with the engagement ceremony at 7:00 PM.",
   },
-  rsvp: { ar: "تأكيد الحضور", en: "RSVP" },
-  rsvpBy: {
-    ar: "يرجى الرد قبل ١ أكتوبر ٢٠٢٦",
-    en: "Please respond by 1 October 2026.",
+  blessing: { ar: "تهنئة للعروسين", en: "Congratulations" },
+  blessingBody: {
+    ar: "شاركونا الفرحة بكلمة حب لعمر وجنى. اكتبوا تهنئتكم ثم أرسلوها عبر واتساب.",
+    en: "Share a word of love for Omar and Jana, then send it on WhatsApp.",
   },
-  willYou: { ar: "هل ستحضرون؟", en: "Will you attend?" },
-  yes: { ar: "سأكون هناك", en: "Yes, I'll be there" },
-  no: { ar: "للأسف لن أستطيع", en: "Sorry, I can't make it" },
-  fullName: { ar: "الاسم بالكامل", en: "Full name" },
-  fullNamePlaceholder: { ar: "اكتبوا اسمكم", en: "Your full name" },
-  message: { ar: "رسالة للعروسين", en: "A message for the couple" },
-  messagePlaceholder: {
-    ar: "أمنياتكم، ذكرى، أو كلمة…",
-    en: "Share a wish, a memory, or a note…",
+  blessingLabel: { ar: "رسالتكم", en: "Your message" },
+  blessingPlaceholder: {
+    ar: "اكتبوا تهنئتكم هنا…",
+    en: "Write your congratulations here…",
   },
-  send: { ar: "إرسال التأكيد", en: "Send RSVP" },
-  sentYes: {
-    ar: "وصلت فرحتكم. ننتظركم في ٩ أكتوبر.",
-    en: "Your joy reached us. We cannot wait to see you.",
-  },
-  sentNo: {
-    ar: "شكرًا لإخبارنا. قلوبنا معكم.",
-    en: "Thank you for letting us know. You are in our hearts.",
+  sendBlessing: { ar: "أرسل تهنئة عبر واتساب", en: "Send congratulations on WhatsApp" },
+  blessingHint: {
+    ar: "سيفتح واتساب برسالة جاهزة لإرسالها للعروسين أو لأي جروب تختارونه.",
+    en: "WhatsApp will open with a ready message you can send to the couple or a group you choose.",
   },
   inviteLine: {
     ar: "يدعوانكم لحضور حفل خطوبتهما",
@@ -116,6 +111,17 @@ export const COPY = {
   },
 } as const;
 
+export const WHATSAPP_DEFAULT_TEXT = `ألف مبروك الخطوبة 💍
+عمر وجنى
+
+بارك الله لكما وبارك عليكما وجمع بينكما في خير.
+كل التهاني القلبية، وفرح يدوم يجمعكما على المحبة والسعادة.`;
+
 export function tx(value: Localized, lang: Lang): string {
   return value[lang];
+}
+
+export function whatsappShareUrl(text: string): string {
+  const message = text.trim() || WHATSAPP_DEFAULT_TEXT;
+  return `https://wa.me/?text=${encodeURIComponent(message)}`;
 }

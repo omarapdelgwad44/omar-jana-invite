@@ -2,12 +2,10 @@
 
 import { motion, type Transition } from "framer-motion";
 import type { ReactNode } from "react";
-import { COUPLE, COPY, EVENT_LABEL, TIMELINE, VENUE, tx } from "@/lib/constants";
+import { COUPLE, COPY, EVENT_LABEL, TIMELINE, VENUE } from "@/lib/constants";
+import { CongratulationsNote } from "@/components/CongratulationsNote";
 import { Countdown } from "@/components/Countdown";
 import { GoldHeroArt } from "@/components/GoldHeroArt";
-import { LanguageToggle } from "@/components/LanguageToggle";
-import { RsvpForm } from "@/components/RsvpForm";
-import { useLanguage } from "@/lib/language";
 
 type Props = {
   reducedMotion: boolean;
@@ -95,14 +93,11 @@ function InViewReveal({
 }
 
 export function InvitationLetter({ reducedMotion }: Props) {
-  const { lang } = useLanguage();
-
   return (
     <div className="letter">
       <section className="gold-hero">
         <GoldHeroArt />
         <div className="gold-hero__veil" aria-hidden="true" />
-        <LanguageToggle />
         <div className="gold-hero__copy">
           <HeroReveal delay={0.5} reducedMotion={reducedMotion}>
             <p className="gold-hero__verse">{COPY.verseShort.ar}</p>
@@ -130,7 +125,7 @@ export function InvitationLetter({ reducedMotion }: Props) {
                 <path d="M7 10l5 5 5-5" />
               </svg>
             </span>
-            <span>{tx(COPY.scroll, lang)}</span>
+            <span>{COPY.scroll.ar}</span>
           </a>
         </HeroReveal>
       </section>
@@ -179,7 +174,7 @@ export function InvitationLetter({ reducedMotion }: Props) {
           ))}
         </div>
         <InViewReveal delay={0} y={-12} duration={1} reducedMotion={reducedMotion}>
-          <p className="gold-pill">{tx(COPY.togetherForever, lang)}</p>
+          <p className="gold-pill">{COPY.togetherForever.ar}</p>
         </InViewReveal>
         <InViewReveal delay={0.2} scale={0.5} rotate={12} y={0} duration={1} reducedMotion={reducedMotion}>
           <div className="gold-heart" aria-hidden="true">
@@ -192,95 +187,98 @@ export function InvitationLetter({ reducedMotion }: Props) {
           </div>
         </InViewReveal>
         <InViewReveal delay={0.3} y={24} duration={1} reducedMotion={reducedMotion}>
-          <h2 className="gold-title">{tx(COPY.joinTitle, lang)}</h2>
+          <h2 className="gold-title">{COPY.joinTitle.ar}</h2>
         </InViewReveal>
         <InViewReveal delay={0.4} y={0} scaleX={0.75} duration={1} reducedMotion={reducedMotion}>
           <StarRule />
         </InViewReveal>
         <InViewReveal delay={0.5} y={20} duration={1} reducedMotion={reducedMotion}>
-          <p className="gold-event__body">{tx(COPY.joinBody, lang)}</p>
+          <p className="gold-event__body">{COPY.joinBody.ar}</p>
         </InViewReveal>
         <InViewReveal delay={0.7} y={32} scale={0.95} duration={1.2} reducedMotion={reducedMotion}>
           <div className="gold-date-card">
             <span className="gold-date-card__corner gold-date-card__corner--bl" aria-hidden="true" />
             <span className="gold-date-card__corner gold-date-card__corner--br" aria-hidden="true" />
-            <p className="gold-date-card__label">{tx(COPY.dateCardLabel, lang)}</p>
+            <p className="gold-date-card__label">{COPY.dateCardLabel.ar}</p>
             <div className="gold-date-card__nums" dir="ltr">
               <div>
                 <strong>{EVENT_LABEL.day}</strong>
-                <small>{tx(COPY.day, lang)}</small>
+                <small>{COPY.day.ar}</small>
               </div>
               <span>/</span>
               <div>
                 <strong>{EVENT_LABEL.month}</strong>
-                <small>{tx(COPY.month, lang)}</small>
+                <small>{COPY.month.ar}</small>
               </div>
               <span>/</span>
               <div>
                 <strong>{EVENT_LABEL.yearNum}</strong>
-                <small>{tx(COPY.yearWord, lang)}</small>
+                <small>{COPY.yearWord.ar}</small>
               </div>
             </div>
             <div className="gold-hairline" aria-hidden="true" />
-            <p className="gold-date-card__note">{tx(COPY.dateCardNote, lang)}</p>
+            <p className="gold-date-card__note">{COPY.dateCardNote.ar}</p>
           </div>
         </InViewReveal>
       </section>
 
       <section className="gold-panel gold-sheet">
         <InViewReveal delay={0.1} y={24} reducedMotion={reducedMotion} className="gold-sheet__block">
-          <h2 className="gold-title gold-title--sm">{tx(COPY.timeLocation, lang)}</h2>
+          <h2 className="gold-title gold-title--sm">{COPY.timeLocation.ar}</h2>
           <StarRule />
-          <p className="sheet__venue">{tx(VENUE.name, lang)}</p>
+          <a
+            className="sheet__place"
+            href={VENUE.mapsUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <p className="sheet__venue">{VENUE.name.ar}</p>
+            <p className="sheet__address">{VENUE.address.ar}</p>
+          </a>
           <p className="sheet__time">
-            {tx(EVENT_LABEL.weekday, lang)} · {tx(VENUE.time, lang)}
+            {EVENT_LABEL.weekday.ar} · {EVENT_LABEL.date.ar} {EVENT_LABEL.year.ar} · {VENUE.time.ar}
           </p>
-          {VENUE.mapsUrl ? (
-            <a className="maps-btn" href={VENUE.mapsUrl} target="_blank" rel="noreferrer">
-              {tx(COPY.openMaps, lang)}
-            </a>
-          ) : null}
+          <a className="maps-btn" href={VENUE.mapsUrl} target="_blank" rel="noreferrer">
+            {COPY.openMaps.ar}
+          </a>
         </InViewReveal>
       </section>
 
       <section className="gold-panel gold-count">
         <InViewReveal delay={0.1} y={24} scale={0.95} duration={1.2} reducedMotion={reducedMotion}>
           <div className="gold-count__card">
-            <h2 className="gold-title gold-title--sm">{tx(COPY.countdown, lang)}</h2>
-            <p className="gold-count__until">{tx(COPY.until, lang)}</p>
-            <Countdown lang={lang} />
+            <h2 className="gold-title gold-title--sm">{COPY.countdown.ar}</h2>
+            <p className="gold-count__until">{COPY.until.ar}</p>
+            <Countdown />
           </div>
         </InViewReveal>
       </section>
 
       <section className="gold-panel gold-sheet gold-sheet--tail">
         <InViewReveal delay={0.1} y={24} reducedMotion={reducedMotion} className="gold-sheet__block">
-          <h2 className="gold-title gold-title--sm">{tx(COPY.timeline, lang)}</h2>
-          <p className="sheet__body">{tx(COPY.timelineBody, lang)}</p>
+          <h2 className="gold-title gold-title--sm">{COPY.timeline.ar}</h2>
+          <p className="sheet__body">{COPY.timelineBody.ar}</p>
           <div className="timeline-card">
             {TIMELINE.map((item) => (
-              <div key={item.title.en} className="timeline-card__item">
-                <span>{tx(item.time, lang)}</span>
-                <strong>{tx(item.title, lang)}</strong>
+              <div key={item.title.ar} className="timeline-card__item">
+                <span>{item.time.ar}</span>
+                <strong>{item.title.ar}</strong>
               </div>
             ))}
           </div>
         </InViewReveal>
 
         <InViewReveal delay={0.2} y={24} reducedMotion={reducedMotion} className="gold-sheet__block">
-          <h2 className="gold-title gold-title--sm">{tx(COPY.rsvp, lang)}</h2>
-          <p className="sheet__body">{tx(COPY.rsvpBy, lang)}</p>
-          <RsvpForm />
+          <h2 className="gold-title gold-title--sm">{COPY.blessing.ar}</h2>
+          <CongratulationsNote />
         </InViewReveal>
 
         <footer className="letter-footer">
           <span className="letter-footer__monogram">{COUPLE.monogram}</span>
           <p>
-            {lang === "ar"
-              ? `${COUPLE.first} و ${COUPLE.second}`
-              : `${COUPLE.firstLatin} & ${COUPLE.secondLatin}`}
+            {COUPLE.first} و {COUPLE.second}
           </p>
-          <small>{tx(COPY.presence, lang)}</small>
+          <small>{COPY.presence.ar}</small>
         </footer>
       </section>
     </div>

@@ -47,7 +47,7 @@ const script = Great_Vibes({
 
 export const metadata: Metadata = {
   title: "عمر وجنى | دعوة الخطوبة",
-  description: "دعوة لحضور حفل خطوبة عمر وجنى في التاسع من أكتوبر.",
+  description: "دعوة لحضور حفل خطوبة عمر وجنى في الثامن من أكتوبر ٢٠٢٦ بنادي نقابة المهندسين، المعادي.",
   applicationName: "Omar & Jana",
   authors: [{ name: "Omar & Jana" }],
   keywords: ["خطوبة", "عمر", "جنى", "دعوة"],

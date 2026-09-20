@@ -2,7 +2,6 @@
 
 import { InvitationLetter } from "@/components/InvitationLetter";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
-import { LanguageProvider } from "@/lib/language";
 import { usePrefersReducedMotion } from "@/lib/hooks";
 
 export function InvitationExperience() {
@@ -10,13 +9,11 @@ export function InvitationExperience() {
 
   return (
     <ErrorBoundary>
-      <LanguageProvider>
-        <div className="experience">
-          <div className="device">
-            <InvitationLetter reducedMotion={reducedMotion} />
-          </div>
+      <div className="experience">
+        <div className="device">
+          <InvitationLetter reducedMotion={reducedMotion} />
         </div>
-      </LanguageProvider>
+      </div>
     </ErrorBoundary>
   );
 }

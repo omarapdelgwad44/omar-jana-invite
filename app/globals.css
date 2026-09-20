@@ -150,17 +150,6 @@ body {
   pointer-events: none;
 }
 
-.gold-hero .lang-toggle {
-  background: rgba(255, 253, 248, 0.82);
-  border: 1px solid rgba(184, 146, 90, 0.35);
-  box-shadow: 0 8px 24px rgba(90, 66, 34, 0.12);
-}
-
-.gold-hero .lang-toggle button.is-active {
-  background: #8a6a3d;
-  color: #fffdf8;
-}
-
 .gold-hero__copy {
   position: relative;
   z-index: 2;
@@ -645,8 +634,7 @@ body {
 
 .gold-count__until {
   margin: 0 0 22px;
-  font-family: var(--font-latin);
-  letter-spacing: 0.08em;
+  font-family: var(--font-display);
   color: #8a6a3d;
 }
 
@@ -674,9 +662,9 @@ body {
   color: #5c4322;
 }
 
-.letter .rsvp__send {
+.letter .bless__send {
   background: linear-gradient(180deg, #c9a56a, #8a6a3d);
-  letter-spacing: 0.12em;
+  letter-spacing: 0.04em;
 }
 
 .letter .letter-footer__monogram {
@@ -805,34 +793,6 @@ body {
   pointer-events: none;
 }
 
-.lang-toggle {
-  position: absolute;
-  top: calc(18px + env(safe-area-inset-top));
-  inset-inline-end: 16px;
-  z-index: 8;
-  display: flex;
-  overflow: hidden;
-  border-radius: 8px;
-  background: rgba(255, 250, 246, 0.94);
-  box-shadow: 0 8px 24px rgba(80, 30, 40, 0.12);
-}
-
-.lang-toggle button {
-  min-width: 46px;
-  padding: 7px 10px;
-  border: 0;
-  background: transparent;
-  color: var(--ink);
-  font-family: var(--font-latin);
-  font-size: 0.72rem;
-  letter-spacing: 0.16em;
-}
-
-.lang-toggle button.is-active {
-  background: var(--rose-deep);
-  color: #fffaf4;
-}
-
 .hero__copy {
   position: relative;
   z-index: 2;
@@ -949,6 +909,7 @@ body {
 .sheet__body,
 .sheet__poem,
 .sheet__venue,
+.sheet__address,
 .sheet__time {
   margin: 0 auto 10px;
   max-width: 28rem;
@@ -962,14 +923,36 @@ body {
   color: var(--rose-deep);
 }
 
+.sheet__place {
+  display: block;
+  margin: 0 auto 10px;
+  max-width: 28rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.sheet__place .sheet__venue,
+.sheet__place .sheet__address {
+  margin-bottom: 4px;
+}
+
+.sheet__place:hover .sheet__address,
+.sheet__place:focus-visible .sheet__address {
+  text-decoration: underline;
+}
+
 .sheet__venue {
   font-size: 1.08rem;
   font-weight: 600;
 }
 
+.sheet__address {
+  font-size: 0.98rem;
+  color: var(--ink-soft);
+}
+
 .sheet__time {
-  font-family: var(--font-latin);
-  letter-spacing: 0.08em;
+  font-family: var(--font-display);
 }
 
 .maps-btn {
@@ -1097,7 +1080,7 @@ body {
   font-weight: 700;
 }
 
-.rsvp {
+.bless {
   display: grid;
   gap: 16px;
   width: min(100%, 440px);
@@ -1105,43 +1088,14 @@ body {
   text-align: start;
 }
 
-.rsvp__attend {
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-
-.rsvp__attend legend,
-.rsvp__field span {
+.bless__field span {
   display: block;
   margin-bottom: 8px;
-  font-family: var(--font-latin);
-  font-style: italic;
+  font-family: var(--font-display);
   color: var(--rose-deep);
 }
 
-[dir="rtl"] .rsvp__attend legend,
-[dir="rtl"] .rsvp__field span {
-  font-family: var(--font-display);
-  font-style: normal;
-}
-
-.rsvp__attend {
-  display: grid;
-  gap: 8px;
-}
-
-.rsvp__attend label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--ink);
-}
-
-.rsvp input[type="text"],
-.rsvp input[type="email"],
-.rsvp input:not([type="radio"]),
-.rsvp textarea {
+.bless textarea {
   width: 100%;
   padding: 12px 14px;
   border: 1px solid rgba(184, 146, 106, 0.5);
@@ -1150,38 +1104,24 @@ body {
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 1rem;
-}
-
-.rsvp textarea {
   resize: vertical;
   min-height: 110px;
 }
 
-.rsvp__send {
+.bless__send {
+  width: 100%;
+  gap: 8px;
   min-height: 48px;
-  border: 0;
-  border-radius: 10px;
-  background: linear-gradient(180deg, #c45c7a, #8c2f54);
-  color: #fffaf4;
-  font-family: var(--font-latin);
-  font-size: 0.95rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  margin-top: 0;
+  border-radius: 12px;
 }
 
-[dir="rtl"] .rsvp__send {
-  font-family: var(--font-body);
-  letter-spacing: 0.08em;
-  text-transform: none;
-}
-
-.rsvp__thanks {
-  margin: 18px auto 0;
-  max-width: 26rem;
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  line-height: 1.8;
-  color: var(--rose-deep);
+.bless__hint {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  text-align: center;
 }
 
 .letter-footer {
@@ -1341,7 +1281,7 @@ body {
     font-size: 2.1rem;
   }
 
-  .rsvp {
+  .bless {
     width: min(100%, 460px);
   }
 
