@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Amiri, Aref_Ruqaa, Cairo, Cormorant_Garamond, Great_Vibes, Montserrat } from "next/font/google";
+import type { ReactNode } from "react";
 import "./globals.css";
 
 const amiri = Amiri({
@@ -61,7 +62,7 @@ export const viewport: Viewport = {
   colorScheme: "light",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   const publicBase = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
   return (

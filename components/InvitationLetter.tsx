@@ -200,6 +200,7 @@ export function InvitationLetter({ reducedMotion }: Props) {
             <span className="gold-date-card__corner gold-date-card__corner--bl" aria-hidden="true" />
             <span className="gold-date-card__corner gold-date-card__corner--br" aria-hidden="true" />
             <p className="gold-date-card__label">{COPY.dateCardLabel.ar}</p>
+            <p className="gold-date-card__weekday">{EVENT_LABEL.weekday.ar}</p>
             <div className="gold-date-card__nums" dir="ltr">
               <div>
                 <strong>{EVENT_LABEL.day}</strong>
@@ -217,7 +218,10 @@ export function InvitationLetter({ reducedMotion }: Props) {
               </div>
             </div>
             <div className="gold-hairline" aria-hidden="true" />
-            <p className="gold-date-card__note">{COPY.dateCardNote.ar}</p>
+            <p className="gold-date-card__note">
+              {EVENT_LABEL.weekday.ar} · {EVENT_LABEL.date.ar} {EVENT_LABEL.year.ar} · {VENUE.time.ar}
+            </p>
+            <p className="gold-date-card__note gold-date-card__note--soft">{COPY.dateCardNote.ar}</p>
           </div>
         </InViewReveal>
       </section>

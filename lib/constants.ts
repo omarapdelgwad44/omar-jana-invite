@@ -84,19 +84,50 @@ export const COPY = {
   },
   blessing: { ar: "تهنئة للعروسين", en: "Congratulations" },
   blessingBody: {
-    ar: "شاركونا الفرحة بكلمة حب لعمر وجنى. اكتبوا تهنئتكم ثم أرسلوها عبر واتساب.",
-    en: "Share a word of love for Omar and Jana, then send it on WhatsApp.",
+    ar: "شاركونا الفرحة بكلمة حب لعمر وجنى. اكتبوا اسمكم وتهنئتكم، وتُحفظ في سجل الخطوبة.",
+    en: "Share a word of love for Omar and Jana. Write your name and message, and it will be saved in the guestbook.",
   },
+  blessingName: { ar: "الاسم", en: "Name" },
+  blessingNamePlaceholder: { ar: "اسمكم الكريم", en: "Your name" },
   blessingLabel: { ar: "رسالتكم", en: "Your message" },
   blessingPlaceholder: {
     ar: "اكتبوا تهنئتكم هنا…",
     en: "Write your congratulations here…",
   },
-  sendBlessing: { ar: "أرسل تهنئة عبر واتساب", en: "Send congratulations on WhatsApp" },
-  blessingHint: {
-    ar: "سيفتح واتساب برسالة جاهزة لإرسالها للعروسين أو لأي جروب تختارونه.",
-    en: "WhatsApp will open with a ready message you can send to the couple or a group you choose.",
+  sendBlessing: { ar: "إرسال التهنئة", en: "Send congratulations" },
+  blessingSending: { ar: "جاري الحفظ…", en: "Saving…" },
+  blessingThanks: {
+    ar: "وصلت تهنئتكم، شكرًا لحبكم. بارك الله فيكم.",
+    en: "Your congratulations reached us. Thank you for your love.",
   },
+  blessingError: {
+    ar: "تعذّر حفظ التهنئة. حاولوا مرة أخرى.",
+    en: "Could not save your message. Please try again.",
+  },
+  blessingHint: {
+    ar: "تظهر التهاني في سجل الخطوبة بعد ربط Google Sheet (انظر README).",
+    en: "Messages appear on the guestbook wall once Google Sheets is connected (see README).",
+  },
+  guestbookSetup: {
+    ar: "سجل التهاني جاهز في الواجهة، وينتظر ربط Google Sheet عبر Apps Script (دقيقتان في README).",
+    en: "The guestbook UI is ready. Connect Google Sheets via Apps Script (two minutes in the README).",
+  },
+  readWishes: { ar: "قراءة سجل التهاني", en: "Read the guestbook" },
+  wishesTitle: { ar: "سجل التهاني", en: "Guestbook" },
+  wishesBody: {
+    ar: "كلمات الحب التي كتبها الأهل والأصدقاء لعمر وجنى.",
+    en: "Words of love written for Omar and Jana.",
+  },
+  wishesLoading: { ar: "جاري تحميل التهاني…", en: "Loading messages…" },
+  wishesEmpty: {
+    ar: "لا توجد تهاني بعد. كونوا أول المهنئين.",
+    en: "No messages yet. Be the first to congratulate them.",
+  },
+  wishesError: {
+    ar: "تعذّر تحميل سجل التهاني الآن.",
+    en: "The guestbook could not be loaded.",
+  },
+  backToInvite: { ar: "العودة إلى الدعوة", en: "Back to the invitation" },
   inviteLine: {
     ar: "يدعوانكم لحضور حفل خطوبتهما",
     en: "request the pleasure of your company",
@@ -111,17 +142,6 @@ export const COPY = {
   },
 } as const;
 
-export const WHATSAPP_DEFAULT_TEXT = `ألف مبروك الخطوبة 💍
-عمر وجنى
-
-بارك الله لكما وبارك عليكما وجمع بينكما في خير.
-كل التهاني القلبية، وفرح يدوم يجمعكما على المحبة والسعادة.`;
-
 export function tx(value: Localized, lang: Lang): string {
   return value[lang];
-}
-
-export function whatsappShareUrl(text: string): string {
-  const message = text.trim() || WHATSAPP_DEFAULT_TEXT;
-  return `https://wa.me/?text=${encodeURIComponent(message)}`;
 }

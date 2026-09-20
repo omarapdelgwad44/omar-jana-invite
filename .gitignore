@@ -33,6 +33,9 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# local clasp credentials (script id in .clasp.json is fine to commit)
+.clasprc.json
+
 # vercel
 .vercel
 
