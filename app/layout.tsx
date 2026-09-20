@@ -46,12 +46,42 @@ const script = Great_Vibes({
   display: "swap",
 });
 
+const siteUrl = "https://omarapdelgwad44.github.io";
+const ogImage = `${siteUrl}/og-invite.jpg`;
+const siteTitle = "عمر وجنى | دعوة الخطوبة";
+const siteDescription =
+  "دعوة لحضور حفل خطوبة عمر وجنى في الثامن من أكتوبر ٢٠٢٦ بنادي نقابة المهندسين، المعادي.";
+
 export const metadata: Metadata = {
-  title: "عمر وجنى | دعوة الخطوبة",
-  description: "دعوة لحضور حفل خطوبة عمر وجنى في الثامن من أكتوبر ٢٠٢٦ بنادي نقابة المهندسين، المعادي.",
+  metadataBase: new URL(siteUrl),
+  title: siteTitle,
+  description: siteDescription,
   applicationName: "Omar & Jana",
   authors: [{ name: "Omar & Jana" }],
   keywords: ["خطوبة", "عمر", "جنى", "دعوة"],
+  openGraph: {
+    title: siteTitle,
+    description: siteDescription,
+    url: siteUrl,
+    siteName: "Omar & Jana",
+    locale: "ar_EG",
+    type: "website",
+    images: [
+      {
+        url: ogImage,
+        width: 1200,
+        height: 630,
+        alt: "دعوة خطوبة عمر وجنى — Omar & Jana engagement invitation",
+        type: "image/jpeg",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: siteDescription,
+    images: [ogImage],
+  },
 };
 
 export const viewport: Viewport = {
