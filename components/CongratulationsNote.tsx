@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { FormEvent, useState } from "react";
 import { COPY } from "@/lib/constants";
 import { addWish, isGuestbookConfigured } from "@/lib/guestbook";
@@ -48,9 +47,6 @@ export function CongratulationsNote() {
     return (
       <div className="bless bless--done">
         <p className="sheet__body">{COPY.blessingThanks.ar}</p>
-        <Link className="maps-btn bless__send" href="/tahani/">
-          {COPY.readWishes.ar}
-        </Link>
       </div>
     );
   }
@@ -107,9 +103,6 @@ export function CongratulationsNote() {
       ) : (
         <p className="bless__hint">{COPY.blessingHint.ar}</p>
       )}
-      <Link className="bless__wall" href="/tahani/">
-        {COPY.readWishes.ar}
-      </Link>
     </form>
   );
 }

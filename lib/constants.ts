@@ -105,8 +105,8 @@ export const COPY = {
     en: "Could not save your message. Please try again.",
   },
   blessingHint: {
-    ar: "تظهر تهنئتكم مباشرة في صفحة سجل التهاني.",
-    en: "Your message appears on the guestbook page right away.",
+    ar: "تُحفظ تهنئتكم بكل حب لدى العروسين.",
+    en: "Your message is saved with love for the couple.",
   },
   guestbookSetup: {
     ar: "سجل التهاني غير متصل حاليًا. تعذّر حفظ الرسائل.",
