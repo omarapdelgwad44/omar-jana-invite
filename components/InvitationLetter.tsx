@@ -6,6 +6,7 @@ import { COUPLE, COPY, EVENT_LABEL, TIMELINE, VENUE } from "@/lib/constants";
 import { CongratulationsNote } from "@/components/CongratulationsNote";
 import { Countdown } from "@/components/Countdown";
 import { GoldHeroArt } from "@/components/GoldHeroArt";
+import { MonogramMark } from "@/components/MonogramMark";
 
 type Props = {
   reducedMotion: boolean;
@@ -278,7 +279,9 @@ export function InvitationLetter({ reducedMotion }: Props) {
         </InViewReveal>
 
         <footer className="letter-footer">
-          <span className="letter-footer__monogram">{COUPLE.monogram}</span>
+          <span className="letter-footer__monogram">
+            <MonogramMark className="letter-footer__monogram-mark" />
+          </span>
           <p>
             {COUPLE.first} و {COUPLE.second}
           </p>
