@@ -95,10 +95,10 @@ export const COPY = {
     en: "Write your congratulations here…",
   },
   sendBlessing: { ar: "إرسال التهنئة", en: "Send congratulations" },
-  blessingSending: { ar: "جاري الحفظ…", en: "Saving…" },
+  blessingSending: { ar: "جاري الإرسال…", en: "Sending…" },
   blessingThanks: {
-    ar: "وصلت تهنئتكم، شكرًا لحبكم. بارك الله فيكم.",
-    en: "Your congratulations reached us. Thank you for your love.",
+    ar: "تم إرسال تهنئتكم بنجاح، شكرًا لحبكم 🤍",
+    en: "Your congratulations were sent. Thank you for your love.",
   },
   blessingError: {
     ar: "تعذّر حفظ التهنئة. حاولوا مرة أخرى.",
