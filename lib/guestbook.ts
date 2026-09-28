@@ -104,23 +104,10 @@ async function requestGuestbook(init?: RequestInit & { query?: Record<string, st
   return parsePayload(response);
 }
 
-const REQUEST_TIMEOUT_MS = 12000;
-const READ_CONCURRENCY = 6;
-
-async function fetchWithTimeout(url: string, init?: RequestInit): Promise<Response> {
-  const controller = new AbortController();
-  const timer = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
-  try {
-    return await fetch(url, { ...init, signal: controller.signal });
-  } finally {
-    window.clearTimeout(timer);
-  }
-}
-
 async function mantleFetch(path: string, init?: RequestInit): Promise<Response> {
   const cleanPath = path.replace(/^\/+/, "");
   const url = `${MANTLE_BASE_URL}/${MANTLE_NAMESPACE}/${cleanPath}`;
-  return fetchWithTimeout(url, {
+  return fetch(url, {
     ...init,
     headers: {
       Accept: "application/json",
@@ -131,22 +118,8 @@ async function mantleFetch(path: string, init?: RequestInit): Promise<Response> 
   });
 }
 
-async function readMantleWish(path: string): Promise<Wish | null> {
-  for (let attempt = 0; attempt < 2; attempt += 1) {
-    try {
-      const response = await mantleFetch(path);
-      if (!response.ok) continue;
-      const payload = (await response.json()) as unknown;
-      return isWish(payload) ? payload : null;
-    } catch {
-      // Timed out or network blip — retry once, then skip this entry.
-    }
-  }
-  return null;
-}
-
-async function listMantleWishes(onProgress?: (wishes: Wish[]) => void): Promise<Wish[]> {
-  const listResponse = await fetchWithTimeout(`${MANTLE_BASE_URL}/list/${MANTLE_NAMESPACE}`, {
+async function listMantleWishes(): Promise<Wish[]> {
+  const listResponse = await fetch(`${MANTLE_BASE_URL}/list/${MANTLE_NAMESPACE}`, {
     cache: "no-store",
     headers: { Accept: "application/json" },
   });
@@ -169,22 +142,16 @@ async function listMantleWishes(onProgress?: (wishes: Wish[]) => void): Promise<
     return [];
   }
 
-  const loaded: Wish[] = [];
-  let next = 0;
-  const worker = async () => {
-    while (next < paths.length) {
-      const path = paths[next];
-      next += 1;
-      const wish = await readMantleWish(path);
-      if (wish) {
-        loaded.push(wish);
-        onProgress?.(sortNewest(loaded));
-      }
-    }
-  };
-  await Promise.all(Array.from({ length: Math.min(READ_CONCURRENCY, paths.length) }, worker));
+  const wishes = await Promise.all(
+    paths.map(async (path) => {
+      const response = await mantleFetch(path);
+      if (!response.ok) return null;
+      const payload = (await response.json()) as unknown;
+      return isWish(payload) ? payload : null;
+    }),
+  );
 
-  return sortNewest(loaded);
+  return sortNewest(wishes.filter((wish): wish is Wish => Boolean(wish)));
 }
 
 async function addMantleWish(name: string, message: string): Promise<Wish> {
@@ -207,7 +174,7 @@ async function addMantleWish(name: string, message: string): Promise<Wish> {
   return wish;
 }
 
-export async function listWishes(onProgress?: (wishes: Wish[]) => void): Promise<Wish[]> {
+export async function listWishes(): Promise<Wish[]> {
   if (GUESTBOOK_SCRIPT_URL) {
     const payload = await requestGuestbook();
     const wishes = Array.isArray(payload.wishes) ? payload.wishes : [];
@@ -215,7 +182,7 @@ export async function listWishes(onProgress?: (wishes: Wish[]) => void): Promise
   }
 
   if (useMantle()) {
-    return listMantleWishes(onProgress);
+    return listMantleWishes();
   }
 
   if (isLocalDemo()) {

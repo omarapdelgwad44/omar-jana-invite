@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { COUPLE, COPY } from "@/lib/constants";
 import { listWishes, type Wish } from "@/lib/guestbook";
 
@@ -21,13 +21,10 @@ function formatWishDate(value: number): string {
 export function WishesBoard() {
   const [wishes, setWishes] = useState<Wish[]>([]);
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
-  const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
-    listWishes((partial) => {
-      if (!cancelled) setWishes(partial);
-    })
+    listWishes()
       .then((items) => {
         if (!cancelled) {
           setWishes(items);
@@ -40,11 +37,6 @@ export function WishesBoard() {
     return () => {
       cancelled = true;
     };
-  }, [attempt]);
-
-  const retry = useCallback(() => {
-    setStatus("loading");
-    setAttempt((value) => value + 1);
   }, []);
 
   return (
@@ -58,17 +50,14 @@ export function WishesBoard() {
         </Link>
       </header>
 
-      {status === "loading" && wishes.length === 0 ? (
+      {status === "loading" ? (
         <p className="wishes-page__status">{COPY.wishesLoading.ar}</p>
       ) : null}
 
       {status === "error" ? (
-        <div className="wishes-page__status" role="alert">
-          <p>{COPY.wishesError.ar}</p>
-          <button type="button" className="maps-btn" onClick={retry}>
-            {COPY.wishesRetry.ar}
-          </button>
-        </div>
+        <p className="wishes-page__status" role="alert">
+          {COPY.wishesError.ar}
+        </p>
       ) : null}
 
       {status === "ready" && wishes.length === 0 ? (
