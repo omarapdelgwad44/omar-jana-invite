@@ -118,10 +118,55 @@ async function mantleFetch(path: string, init?: RequestInit): Promise<Response> 
   });
 }
 
+async function withRetry<T>(task: () => Promise<T>, attempts = 3): Promise<T> {
+  let lastError: unknown;
+  for (let attempt = 0; attempt < attempts; attempt += 1) {
+    try {
+      return await task();
+    } catch (error) {
+      lastError = error;
+      await new Promise((resolve) => setTimeout(resolve, 400 * (attempt + 1)));
+    }
+  }
+  throw lastError;
+}
+
+async function mapLimited<T, R>(items: T[], limit: number, task: (item: T) => Promise<R>): Promise<R[]> {
+  const results = new Array<R>(items.length);
+  let next = 0;
+  const workers = Array.from({ length: Math.min(limit, items.length) }, async () => {
+    while (next < items.length) {
+      const index = next;
+      next += 1;
+      results[index] = await task(items[index]);
+    }
+  });
+  await Promise.all(workers);
+  return results;
+}
+
+async function readMantleWish(path: string): Promise<Wish | null> {
+  try {
+    return await withRetry(async () => {
+      const response = await mantleFetch(path);
+      if (response.status === 404) return null;
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = (await response.json()) as unknown;
+      return isWish(payload) ? payload : null;
+    });
+  } catch {
+    return null;
+  }
+}
+
 async function listMantleWishes(): Promise<Wish[]> {
-  const listResponse = await fetch(`${MANTLE_BASE_URL}/list/${MANTLE_NAMESPACE}`, {
-    cache: "no-store",
-    headers: { Accept: "application/json" },
+  const listResponse = await withRetry(async () => {
+    const response = await fetch(`${MANTLE_BASE_URL}/list/${MANTLE_NAMESPACE}`, {
+      cache: "no-store",
+      headers: { Accept: "application/json" },
+    });
+    if (!response.ok && response.status !== 404) throw new Error(`HTTP ${response.status}`);
+    return response;
   });
 
   if (listResponse.status === 404) {
@@ -142,14 +187,7 @@ async function listMantleWishes(): Promise<Wish[]> {
     return [];
   }
 
-  const wishes = await Promise.all(
-    paths.map(async (path) => {
-      const response = await mantleFetch(path);
-      if (!response.ok) return null;
-      const payload = (await response.json()) as unknown;
-      return isWish(payload) ? payload : null;
-    }),
-  );
+  const wishes = await mapLimited(paths, 6, readMantleWish);
 
   return sortNewest(wishes.filter((wish): wish is Wish => Boolean(wish)));
 }
