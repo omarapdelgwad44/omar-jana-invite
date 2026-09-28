@@ -127,6 +127,7 @@ export const COPY = {
     ar: "تعذّر تحميل سجل التهاني الآن.",
     en: "The guestbook could not be loaded.",
   },
+  wishesRetry: { ar: "إعادة المحاولة", en: "Try again" },
   backToInvite: { ar: "العودة إلى الدعوة", en: "Back to the invitation" },
   inviteLine: {
     ar: "يدعوانكم لحضور حفل خطوبتهما",
